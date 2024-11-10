@@ -1,0 +1,64 @@
+:root {
+    /*  main color pallette */
+    --main: rgb(32,77,79);
+    --asset: rgb(233, 131, 0);
+    --accent: rgb(169,193,194);
+    --white: hsl(0, 0%, 98%);
+    --black: rgb(34, 34, 34);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--white);
+    font-size: 16px;
+    font-family: 'Merienda', cursive;
+    overflow: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+#__nuxt {
+    min-height: 100vh;
+}
+
+#__nuxt > * {
+    min-height: 100vh;
+}
+
+button {
+    cursor: pointer;
+}
+
+.action-button {
+    text-transform: uppercase;
+    font-family: 'Merienda', cursive;
+    font-weight: bold;
+    padding: 0.5em 3em;
+}
+
+.sr-only {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+	-webkit-clip-path: inset(50%) !important;
+		clip-path: inset(50%) !important;  /* 2 */
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;            /* 3 */
+}
+
+.collapse-button {
+    background-color: var(--main);
+    border-color: transparent;
+    color: var(--white);
+    font-weight: normal;
+    width: 100%;
+}
+
+.full-w {
+    width: 100% !important;
+}
