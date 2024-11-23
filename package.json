@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
+    "@nuxt/ui": "^2.19.2",
+    "@nuxtjs/tailwindcss": "^6.12.2",
     "@vesp/nuxt-fontawesome": "^1.1.0",
     "nuxt": "^3.13.2",
     "vue": "latest",

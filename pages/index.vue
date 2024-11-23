@@ -6,7 +6,7 @@
             <div class="form-input-wrapper">
                 <label for="secret-message" class="form-label">Secret message</label>
                 <div class="form-input-row">
-                    <textarea name="secret-message" class="form-input textarea" rows="5" required />
+                    <textarea name="secret-message" class="form-input textarea" placeholder="Type your message here..." rows="5" required />
                 </div>
             </div>
             <Collapse title="Add password" opened-collapse-title="Make secret without required password" icon="key">
@@ -39,14 +39,3 @@
 <script setup lang="ts">
 const isPasswordShown = ref(false);
 </script>
-
-<style scoped>
-.secret-form-section {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-}
-</style>

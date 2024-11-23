@@ -1,21 +1,12 @@
-:root {
-    /*  main color pallette */
-    --main: rgb(32,77,79);
-    --asset: rgb(233, 131, 0);
-    --accent: rgb(169,193,194);
-    --white: hsl(0, 0%, 98%);
-    --black: rgb(34, 34, 34);
-}
-
 html, body {
     margin: 0;
     padding: 0;
-    background-color: var(--white);
     font-size: 16px;
     font-family: 'Merienda', cursive;
     overflow: hidden;
     min-height: 100vh;
     min-height: 100dvh;
+    @apply bg-white dark:bg-black dark:text-white;
 }
 
 #__nuxt {
@@ -35,6 +26,7 @@ button {
     font-family: 'Merienda', cursive;
     font-weight: bold;
     padding: 0.5em 3em;
+    @apply rounded-sm;
 }
 
 .sr-only {
@@ -52,13 +44,53 @@ button {
 }
 
 .collapse-button {
-    background-color: var(--main);
-    border-color: transparent;
-    color: var(--white);
-    font-weight: normal;
-    width: 100%;
+    @apply bg-main-900 text-white border-transparent font-normal w-full;
 }
 
 .full-w {
     width: 100% !important;
+}
+
+.triangle-top-left {
+    top: 0;
+    left: 0;
+    width: min(40vw, 500px);
+    aspect-ratio: 1;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    @apply bg-main-900 absolute;
+}
+
+ .triangle-bottom-right {
+    bottom: 0;
+    right: 0;
+    width: min(40vw, 500px);
+    aspect-ratio: 1;
+    clip-path: polygon(100% 100%, 0 100%, 100% 0);
+    @apply bg-main-900 absolute;
+}
+
+.content {
+    @apply mt-10 mx-auto z-10 min-h-screen relative max-w-[1000px] px-4;
+}
+
+.secret-form-section {
+    z-index: 2;
+    @apply mt-20 flex items-center relative justify-center;
+}
+
+
+.custom-table tbody tr {
+    @apply border-t-[1px] !border-accent;
+}
+
+.custom-table td {
+   @apply text-black dark:text-white;
+}
+
+.custom-table th, .custom-table td {
+    @apply text-base;
+}
+
+h1 {
+    @apply text-3xl font-bold;
 }

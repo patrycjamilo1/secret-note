@@ -1,29 +1,25 @@
 <template>
    <div class="app-layout">
         <div class="triangle-top-left"></div>
-        <slot />
+        <div class="content">
+            <Header>
+               <NuxtLink to="/" class="text-3xl text-white">Secret Note</NuxtLink>
+               <nav class="flex gap-2 items-center">
+                  <NuxtLink to="/messages" class="underline">Messages</NuxtLink>
+                  <span class="w-2 h-full">|</span>
+                  <button type="button" class="underline">Logout</button>
+                  <span class="w-2 h-full">|</span>
+                  <NuxtLink to="/profile">
+                     <UAvatar alt="User avatar" :src="BlankUser" size="md" />
+                  </NuxtLink>
+               </nav>
+            </Header>
+            <slot />
+        </div>
         <div class="triangle-bottom-right"></div>
     </div>
 </template>
 
-<style scoped>
-   .triangle-top-left {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: min(40vw, 500px);
-      aspect-ratio: 1;
-      background-color: var(--main);
-      clip-path: polygon(0 0, 100% 0, 0 100%);
-    }
-
-   .triangle-bottom-right {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: min(40vw, 500px);
-      aspect-ratio: 1;
-      background-color: var(--main);
-      clip-path: polygon(100% 100%, 0 100%, 100% 0);
-    }
-</style>
+<script setup>
+import BlankUser from '~/assets/images/user-blank.png';
+</script>
