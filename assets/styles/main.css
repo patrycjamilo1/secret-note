@@ -94,3 +94,11 @@ button {
 h1 {
     @apply text-3xl font-bold;
 }
+
+.input-error {
+    @apply text-sm mt-2 text-center text-red-500 dark:text-red-400;
+}
+
+.form-input-wrapper:has(.input-error) input {
+    @apply border-red-500 dark:border-red-400;
+}
