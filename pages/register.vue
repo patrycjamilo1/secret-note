@@ -20,7 +20,7 @@
             <div class="form-input-wrapper">
                 <label for="password" class="form-label form-label-with-icon">Password</label>
                 <div class="form-input-row with-icon">
-                    <input :type="isPasswordShown ? 'text' : 'password'" name="password" class="form-input" v-model="password" data-rules="required|minLength:8|minLowercase:1|minUppercase:1|minNumbers:1|minSymbols:1" />
+                    <input :type="isPasswordShown ? 'text' : 'password'" name="password" class="form-input" data-rules="required|minLength:8|minLowercase:1|minUppercase:1|minNumbers:1|minSymbols:1" />
                     <button class="icon-button" type="button" aria-label="Click here to show password as plain text" @click="isPasswordShown = !isPasswordShown">
                         <font-awesome :icon="isPasswordShown ? 'eye' : 'eye-slash'" />
                     </button>
@@ -50,7 +50,6 @@ definePageMeta({
     layout: 'logged-out'
 })
 const isPasswordShown = ref(false);
-const password = ref('');
 const { errors, validateForm, handleBlur, clearErrors } = useFormValidation();
 async function handleSubmit(e: Event) {
     clearErrors();
