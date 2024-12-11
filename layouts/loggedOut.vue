@@ -3,7 +3,7 @@
         <div class="triangle-top-left" />
         <div class="content">
             <Header>
-               <NuxtLink to="/" class="text-3xl text-white">Secret Note</NuxtLink>
+               <NuxtLink to="/" class="text-3xl text-white contrast:text-black">Secret Note</NuxtLink>
                <nav class="flex gap-2 items-center">
                   <NuxtLink to="/login" class="underline">Sign in</NuxtLink>
                   <span class="w-2 h-full">|</span>

@@ -29,13 +29,13 @@ function changeBodyFontSize(size: 'small' | 'default' | 'big'){
 
 <style scoped>
 header {
-    @apply bg-asset-600 p-4 flex flex-col gap-4 md:flex-row rounded-sm justify-between items-center text-white;
+    @apply bg-asset-600 contrast:bg-white p-4 flex flex-col gap-4 md:flex-row rounded-sm justify-between items-center text-white contrast:text-black;
 }
 .font-select-button {
     width: 35px;
     height: 35px;
     border: 3px solid;
-    @apply border-white font-bold;
+    @apply border-white contrast:border-black font-bold;
 }
 
 .font-select-button:nth-child(2n) {
