@@ -5,14 +5,16 @@
             <UAvatar alt="User avatar" :src="BlankUser" size="3xl" />
             <div class="form-input-wrapper form-input-wrapper-full">
                 <label for="theme" class="form-label">Theme</label>
-                <div class="form-input-row">
-                    <select v-model="$colorMode.preference" class="form-input">
-                        <option value="system">System</option>
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                        <option value="contrast">Contrast</option>
-                    </select>
-                </div>
+                    <div class="form-input-row">
+                        <ColorScheme placeholder="Loading theme settings..." tag="span">
+                            <select v-model="$colorMode.preference" class="form-input">
+                                <option value="system">System</option>
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="contrast">Contrast</option>
+                            </select>
+                        </ColorScheme>
+                    </div>
                 <p class="input-error" v-if="errors.login">{{ errors.email }}</p>
             </div>
             <div class="form-input-wrapper form-input-wrapper-full">
