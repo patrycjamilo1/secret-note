@@ -4,6 +4,18 @@
         <form autocomplete="new-password" class="form max-w-[600px]">
             <UAvatar alt="User avatar" :src="BlankUser" size="3xl" />
             <div class="form-input-wrapper form-input-wrapper-full">
+                <label for="theme" class="form-label">Theme</label>
+                <div class="form-input-row">
+                    <select v-model="$colorMode.preference" class="form-input">
+                        <option value="system">System</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="contrast">Contrast</option>
+                    </select>
+                </div>
+                <p class="input-error" v-if="errors.login">{{ errors.email }}</p>
+            </div>
+            <div class="form-input-wrapper form-input-wrapper-full">
                 <label for="email" class="form-label">E-mail</label>
                 <div class="form-input-row">
                     <input type="text" name="email" class="form-input" data-rules="required|email" />

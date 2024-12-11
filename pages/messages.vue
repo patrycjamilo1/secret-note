@@ -2,15 +2,7 @@
     <div class="secret-form-section flex flex-col gap-6">
         <h1>Messages created by you</h1>
         <div class="overflow-x-auto max-w-full">
-            <UCard class="bg-white dark:bg-main-900 border-2 border-asset-600">
-                <UTable :rows="records" :columns="columns" class="custom-table">
-                    <template #actions-data="{ row }">
-                    <UDropdown :items="items(row)">
-                        <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
-                    </UDropdown>
-                    </template>
-                </UTable>
-            </UCard>
+          
         </div>  
     </div>
 </template>

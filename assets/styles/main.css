@@ -6,7 +6,7 @@ html, body {
     overflow: hidden;
     min-height: 100vh;
     min-height: 100dvh;
-    @apply bg-white dark:bg-black dark:text-white;
+    @apply bg-white dark:bg-black contrast:bg-black dark:text-white contrast:text-contrast-yellow;
 }
 
 #__nuxt {
@@ -78,18 +78,6 @@ button {
     @apply mt-20 flex items-center relative justify-center;
 }
 
-
-.custom-table tbody tr {
-    @apply border-t-[1px] !border-accent;
-}
-
-.custom-table td {
-   @apply text-black dark:text-white;
-}
-
-.custom-table th, .custom-table td {
-    @apply text-base;
-}
 
 h1 {
     @apply text-3xl font-bold;

@@ -30,12 +30,20 @@ export default {
           '900': '#7b370c',
           '950': '#471b01',
           },
+        "contrast-yellow": '#CEF50A',
         accent: '#8FAEB0',
         black: '#222222',
         white: '#FFFFFF',
       }
     },
   },
-  plugins: [],
+  variants: {
+    extend: {},
+  },
+  plugins: [
+    function ({ addVariant }) {
+      addVariant('contrast', 'html.contrast &');
+    },
+  ],
 }
 

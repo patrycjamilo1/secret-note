@@ -7,7 +7,13 @@ export default defineNuxtConfig({
     "~/assets/styles/main.css",
     "~/assets/styles/form.css",
   ],
-  modules: ["@vesp/nuxt-fontawesome", "@formkit/auto-animate/nuxt", "@nuxt/ui", "@pinia/nuxt"],
+  modules: [
+    "@vesp/nuxt-fontawesome",
+    "@formkit/auto-animate/nuxt",
+    "@nuxt/ui",
+    "@pinia/nuxt",
+    "@nuxtjs/color-mode",
+  ],
   fontawesome: {
     icons: {
       solid: ["lock", "eye", "eye-slash", "key", "calendar"],
@@ -18,4 +24,7 @@ export default defineNuxtConfig({
       apiUrl: "localhost:3333",
     },
   },
+  colorMode: {
+    classSuffix: '',
+  }
 });

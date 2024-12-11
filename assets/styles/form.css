@@ -6,7 +6,7 @@
     width: 80%;
     border: 4px solid;
     padding: 1em;
-    @apply bg-white border-asset-600 rounded-sm dark:bg-black;
+    @apply bg-white border-asset-600 rounded-sm dark:bg-black contrast:bg-black;
 }
 
 .form-input-wrapper {
@@ -52,9 +52,38 @@
     flex-basis: 100%;
     max-width: 100%;
     border: 2px solid;
-    @apply border-main-900 text-inherit rounded-sm dark:bg-black;
+    @apply border-main-900 text-inherit rounded-sm dark:bg-black contrast:bg-black;
 }
 
+/* Base autofill styles for all modes */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  font-family: inherit;
+  padding: 0.5em 1em;
+  box-shadow: 0 0 0 30px theme('colors.white') inset; /* Default light mode color */
+  -webkit-text-fill-color: inherit; /* Ensure text color is inherited */
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+/* Dark mode autofill styles */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px theme('colors.black') inset; /* Dark background */
+  -webkit-text-fill-color: inherit; /* Light text for dark mode */
+}
+
+/* Contrast mode autofill styles */
+.contrast input:-webkit-autofill,
+.contrast input:-webkit-autofill:hover,
+.contrast input:-webkit-autofill:focus,
+.contrast input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px theme('colors.black') inset; /* Contrast mode background */
+  -webkit-text-fill-color: theme('colors.contrast-yellow'); /* Soft yellow for contrast mode */
+}
 .submit-button {
     margin-top: 20px;
     @apply text-white bg-asset-600 border-transparent hover:bg-asset-700;
@@ -66,9 +95,9 @@
 
 .form-input.textarea {
     resize: none;
-    @apply dark:bg-black text-inherit;
+    @apply dark:bg-black contrast:bg-black text-inherit;
 }
 
 .form-input.textarea::placeholder {
-    @apply text-black dark:text-white;
+    @apply text-black dark:text-white contrast:text-contrast-yellow;
 }

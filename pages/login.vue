@@ -1,7 +1,7 @@
 <template>
     <section class="secret-form-section">
         <h1 class="sr-only">Login form</h1>
-        <form class="login-form form">
+        <form class="login-form form" autocomplete="new-password">
             <FormHeader />
             <div class="form-input-wrapper">
                 <label for="login" class="form-label">Login</label>
@@ -12,7 +12,7 @@
             <div class="form-input-wrapper">
                 <label for="password" class="form-label form-label-with-icon">Password</label>
                 <div class="form-input-row with-icon">
-                    <input :type="isPasswordShown ? 'text' : 'password'" name="password" class="form-input" required />
+                    <input :type="isPasswordShown ? 'text' : 'password'" name="password" class="form-input" required autocomplete="new-password" />
                     <button class="icon-button" type="button" aria-label="Click here to show password as plain text" @click="isPasswordShown = !isPasswordShown">
                         <font-awesome :icon="isPasswordShown ? 'eye' : 'eye-slash'" />
                     </button>
