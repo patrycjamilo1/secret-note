@@ -47,8 +47,8 @@ export function useFormValidation() {
         Object.keys(errors).forEach((key) => delete errors[key]);
 
         formInputs.forEach((input) => {
-        validateField(input);
-        if (errors[input.name]) isValid = false;
+            validateField(input);
+            if (errors[input.name]) isValid = false;
         });
 
         return isValid;
@@ -67,7 +67,10 @@ export function useFormValidation() {
     const handleBlur = (e: FocusEvent): void => {
         const target = e.target as HTMLInputElement;
         if (target.tagName === "INPUT" && target.dataset.rules) {
-        validateField(target); // Validate the field
+            validateField(target); // Validate the field
+        }
+        if(target.tagName === "INPUT" && !target.dataset.rules) {
+            errors[target.name] = '';
         }
     };
 

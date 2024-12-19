@@ -10,7 +10,7 @@
                   <button type="button" class="underline" @click="logout">Logout</button>
                   <span class="w-2 h-full">|</span>
                   <NuxtLink to="/profile" class="profile-link">
-                     <UAvatar alt="User avatar" :src="BlankUser" size="md" />
+                     <UAvatar alt="User avatar" :src="authStore.user.image || BlankUser" size="md" />
                   </NuxtLink>
                </nav>
             </Header>
