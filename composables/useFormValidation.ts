@@ -58,6 +58,12 @@ export function useFormValidation() {
         Object.keys(errors).forEach((key) => delete errors[key]);
     };
 
+    const setErrors = (apiErrors: ValidationErrors): void => {
+        Object.keys(apiErrors).forEach((key) => {
+          errors[key] = apiErrors[key]; // Populate errors with API errors
+        });
+      };
+
     const handleBlur = (e: FocusEvent): void => {
         const target = e.target as HTMLInputElement;
         if (target.tagName === "INPUT" && target.dataset.rules) {
@@ -77,6 +83,7 @@ export function useFormValidation() {
         validateField,
         validateForm,
         clearErrors,
+        setErrors,
         handleBlur,
         handleInput,
     };

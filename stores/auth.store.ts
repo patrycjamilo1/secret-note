@@ -3,6 +3,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 export interface UserData {
     id: number;
     email: string;
+    login: string;
     image?: string;
     createdAt?: string;
 }

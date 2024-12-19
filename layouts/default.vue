@@ -7,7 +7,7 @@
                <nav class="flex gap-2 items-center">
                   <NuxtLink to="/messages" class="underline">Messages</NuxtLink>
                   <span class="w-2 h-full">|</span>
-                  <button type="button" class="underline">Logout</button>
+                  <button type="button" class="underline" @click="logout">Logout</button>
                   <span class="w-2 h-full">|</span>
                   <NuxtLink to="/profile" class="profile-link">
                      <UAvatar alt="User avatar" :src="BlankUser" size="md" />
@@ -22,6 +22,38 @@
 
 <script setup>
 import BlankUser from '~/assets/images/user-blank.png';
+
+const { $api } = useNuxtApp();
+const authStore = useAuthStore();
+
+async function logout()
+{
+    try
+    {
+        await $api.post('/auth/logout');
+        authStore.token = '';
+
+        const authCookie = useCookie('token');
+
+        authCookie.value = null;
+
+        localStorage.setItem('refreshToken', '');
+        authStore.user = null;
+        navigateTo('/login');
+    }
+    catch (error)
+    {
+        authStore.token = '';
+
+        const authCookie = useCookie('token');
+
+        authCookie.value = null;
+
+        localStorage.setItem('refreshToken', '');
+        authStore.user = null;
+        navigateTo('/login');
+    }
+}
 </script>
 
 <style scoped>

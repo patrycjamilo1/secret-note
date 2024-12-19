@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "~/assets/fonts/fonts.css",
     "~/assets/styles/main.css",
     "~/assets/styles/form.css",
+    'vue-toast-notification/dist/theme-default.css'
   ],
   modules: [
     "@vesp/nuxt-fontawesome",
@@ -21,7 +22,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiUrl: "localhost:3333",
+      apiUrl: "http://localhost:3333",
     },
   },
   colorMode: {

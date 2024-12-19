@@ -1,7 +1,7 @@
 <template>
     <section class="secret-form-section flex-col gap-5">
         <h1>Your profile</h1>
-        <form autocomplete="new-password" class="form max-w-[600px]">
+        <form autocomplete="new-password" class="form max-w-[600px]" @submit.prevent="handleSubmit" @blur.capture="handleBlur" novalidate>
             <UAvatar alt="User avatar" :src="BlankUser" size="3xl" />
             <div class="form-input-wrapper form-input-wrapper-full">
                 <label for="theme" class="form-label">Theme</label>
@@ -22,7 +22,7 @@
                 <div class="form-input-row">
                     <input type="text" name="email" class="form-input" data-rules="required|email" />
                 </div>
-                <p class="input-error" v-if="errors.login">{{ errors.email }}</p>
+                <p class="input-error" v-if="errors.email">{{ errors.email }}</p>
             </div>
             <div class="form-input-wrapper form-input-wrapper-full">
                 <label for="password" class="form-label form-label-with-icon">Password</label>
@@ -43,6 +43,17 @@
 
 <script setup lang="ts">
 import BlankUser from '~/assets/images/user-blank.png';
-const { errors } = useFormValidation();
+const { errors, clearErrors, validateForm, handleBlur } = useFormValidation();
+async function handleSubmit(e: Event) {
+    clearErrors();
+    const targetForm = e.target as HTMLFormElement;
+
+    if (validateForm(targetForm)) {
+    console.log("Form is valid. Proceeding with submission...");
+    // Proceed with form submission logic
+  } else {
+    console.log("Validation failed:", errors);
+  }
+}
 const isPasswordShown = ref(false);
 </script>

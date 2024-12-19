@@ -28,14 +28,14 @@
                 <p class="input-error" v-if="errors.password">{{ errors.password }}</p>
             </div>
             <div class="form-input-wrapper">
-                <label for="confirmPassword" class="form-label form-label-with-icon">Confirm Password</label>
+                <label for="passwordConfirm" class="form-label form-label-with-icon">Confirm Password</label>
                 <div class="form-input-row with-icon">
-                    <input :type="isPasswordShown ? 'text' : 'password'" name="confirmPassword" class="form-input" data-rules="required|matches:password" />
+                    <input :type="isPasswordShown ? 'text' : 'password'" name="passwordConfirm" class="form-input" data-rules="required|matches:password" />
                     <button class="icon-button" type="button" aria-label="Click here to show password as plain text" @click="isPasswordShown = !isPasswordShown">
                         <font-awesome :icon="isPasswordShown ? 'eye' : 'eye-slash'" />
                     </button>
                 </div>
-                <p class="input-error" v-if="errors.confirmPassword">{{ errors.confirmPassword }}</p>
+                <p class="input-error" v-if="errors.passwordConfirm">{{ errors.passwordConfirm }}</p>
             </div>
             <NuxtLink to="/login">Already have an account? Sign in</NuxtLink>
             <button type="submit" class="submit-button action-button">
@@ -46,20 +46,37 @@
 </template>
 
 <script setup lang="ts">
+import type { FetchErrorWithMessage } from '~/types/api';
+
 definePageMeta({
     layout: 'logged-out'
 })
+interface FormData extends Record<string, string> {
+    login: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+}
 const isPasswordShown = ref(false);
-const { errors, validateForm, handleBlur, clearErrors } = useFormValidation();
+const { $api, $toast } = useNuxtApp();
+const { errors, validateForm, handleBlur, clearErrors, setErrors } = useFormValidation();
 async function handleSubmit(e: Event) {
     clearErrors();
     const targetForm = e.target as HTMLFormElement;
 
     if (validateForm(targetForm)) {
-    console.log("Form is valid. Proceeding with submission...");
-    // Proceed with form submission logic
-  } else {
-    console.log("Validation failed:", errors);
-  }
+        const formData = useFormData<FormData>(targetForm);
+        try {
+            await $api.post('auth/local/signup', formData);
+            navigateTo('/login');
+            $toast.success('User successfully registered, you can now log in');
+        }
+        catch(ex) {
+            const { formFormattedMessages, message } = useCustomError(ex as FetchErrorWithMessage);
+            if (message)
+                $toast.error(message);
+            setErrors(formFormattedMessages);
+        }
+    }
 }
 </script>
