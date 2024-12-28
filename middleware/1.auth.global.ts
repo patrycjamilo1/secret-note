@@ -45,14 +45,4 @@ export default defineNuxtRouteMiddleware(async (to) =>
             navigateTo('/');
         }
     }
-
-    const isUnauthorizedPage = ['login', 'register'].includes((to.name ?? '') as string);
-
-    if (authStore.token && isUnauthorizedPage)
-        return navigateTo('/');
-
-    if (authStore.token || isUnauthorizedPage)
-        return;
-
-    return navigateTo({ name: 'login' });
 });

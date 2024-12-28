@@ -40,7 +40,7 @@
     }
 
     &.with-icon {
-        input {
+        input:not([type="datetime-local"]) {
             padding-right: 40px;
         }
     }

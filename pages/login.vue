@@ -31,10 +31,6 @@
 <script setup lang="ts">
 import type { FetchErrorWithMessage, Tokens } from '~/types/api';
 
-definePageMeta({
-    layout: 'logged-out'
-})
-
 const { $api, $toast } = useNuxtApp();
 const isPasswordShown = ref(false);
 const authStore = useAuthStore();

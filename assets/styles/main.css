@@ -7,7 +7,7 @@ html, body {
     padding: 0;
     font-size: var(--base-font-size);
     font-family: 'Merienda', cursive;
-    overflow: hidden;
+    overflow: auto;
     min-height: 100vh;
     min-height: 100dvh;
     @apply bg-white dark:bg-black contrast:bg-black dark:text-white contrast:text-contrast-yellow;
@@ -91,6 +91,15 @@ h1 {
     @apply text-sm mt-2 text-center text-red-500 dark:text-red-400;
 }
 
-.form-input-wrapper:has(.input-error) input {
+.form-input-wrapper:has(.input-error) input, .form-input-wrapper:has(.input-error) textarea {
     @apply border-red-500 dark:border-red-400;
 }
+
+.collapse-content .form-input {
+    @apply bg-white text-black dark:text-white contrast:text-white;
+}
+
+.collapse-content svg {
+    @apply text-black dark:text-white contrast:text-white;
+}
+

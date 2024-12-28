@@ -5,89 +5,94 @@ export interface ValidationErrors {
 }
 
 export function useFormValidation() {
-    const errors = reactive<ValidationErrors>({});
-    const validationRules = useValidationRules();
+  const errors = reactive<ValidationErrors>({});
+  const validationRules = useValidationRules();
 
-    const validateField = (input: HTMLInputElement): void => {
-        const rulesString = input.dataset.rules;
-        const value = input.value.trim();
+  const validateField = (field: HTMLInputElement | HTMLTextAreaElement): void => {
+    const rulesString = field.dataset.rules;
+    const value = field.value.trim();
 
-        delete errors[input.name];
+    delete errors[field.name];
 
-        if (rulesString) {
-        const rules = rulesString.split("|");
+    if (rulesString) {
+      const rules = rulesString.split("|");
 
-        for (const rule of rules) {
-            const [ruleName, param] = rule.split(":");
-            const validationRule = (validationRules as any)[ruleName];
+      for (const rule of rules) {
+        const [ruleName, param] = rule.split(":");
+        const validationRule = (validationRules as any)[ruleName];
 
-            if (validationRule) {
-                const result =
-                    ruleName === "matches"
-                    ? validationRule(param, input)(value)
-                    : typeof param !== "undefined"
-                    ? validationRule(param)(value)
-                    : validationRule(value);
+        if (validationRule) {
+          const result =
+            ruleName === "matches"
+              ? validationRule(param, field)(value)
+              : typeof param !== "undefined"
+              ? validationRule(param)(value)
+              : validationRule(value);
 
-            if (result !== true) {
-                errors[input.name] = result as string; // Set the first error
-                break;
-            }
-            } else {
-            console.warn(`Validation rule "${ruleName}" not found.`);
-            }
+          if (result !== true) {
+            errors[field.name] = result as string;
+            break;
+          }
+        } else {
+          console.warn(`Validation rule "${ruleName}" not found.`);
         }
-        }
-    };
+      }
+    }
+  };
 
-    const validateForm = (form: HTMLFormElement): boolean => {
-        const formInputs = form.querySelectorAll<HTMLInputElement>("input");
-        let isValid = true;
 
-        Object.keys(errors).forEach((key) => delete errors[key]);
+  const validateForm = (form: HTMLFormElement): boolean => {
+    const formFields = form.querySelectorAll(
+      "input, textarea"
+    ) as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
 
-        formInputs.forEach((input) => {
-            validateField(input);
-            if (errors[input.name]) isValid = false;
-        });
+    let isValid = true;
 
-        return isValid;
-    };
+    Object.keys(errors).forEach((key) => delete errors[key]);
 
-    const clearErrors = () => {
-        Object.keys(errors).forEach((key) => delete errors[key]);
-    };
+    formFields.forEach((field) => {
+      validateField(field);
+      if (errors[field.name]) isValid = false;
+    });
 
-    const setErrors = (apiErrors: ValidationErrors): void => {
-        Object.keys(apiErrors).forEach((key) => {
-          errors[key] = apiErrors[key]; // Populate errors with API errors
-        });
-      };
+    return isValid;
+  };
 
-    const handleBlur = (e: FocusEvent): void => {
-        const target = e.target as HTMLInputElement;
-        if (target.tagName === "INPUT" && target.dataset.rules) {
-            validateField(target); // Validate the field
-        }
-        if(target.tagName === "INPUT" && !target.dataset.rules) {
-            errors[target.name] = '';
-        }
-    };
+  const clearErrors = () => {
+    Object.keys(errors).forEach((key) => delete errors[key]);
+  };
 
-    const handleInput = (e: Event): void => {
-        const target = e.target as HTMLInputElement;
-        if (target.tagName === "INPUT" && target.name in errors) {
-        delete errors[target.name]; // Clear the error for this field
-        }
-    };
+  const setErrors = (apiErrors: ValidationErrors): void => {
+    Object.keys(apiErrors).forEach((key) => {
+      errors[key] = apiErrors[key];
+    });
+  };
 
-    return {
-        errors,
-        validateField,
-        validateForm,
-        clearErrors,
-        setErrors,
-        handleBlur,
-        handleInput,
-    };
+  const handleBlur = (e: FocusEvent): void => {
+    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+    if ((target.tagName === "INPUT" || target.tagName === "TEXTAREA") && target.dataset.rules) {
+      validateField(target); // Validate if it has data-rules
+    }
+
+    if ((target.tagName === "INPUT" || target.tagName === "TEXTAREA") && !target.dataset.rules) {
+      errors[target.name] = "";
+    }
+  };
+
+  const handleInput = (e: Event): void => {
+    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+    if ((target.tagName === "INPUT" || target.tagName === "TEXTAREA") && target.name in errors) {
+      delete errors[target.name];
+    }
+  };
+
+  return {
+    errors,
+    validateField,
+    validateForm,
+    clearErrors,
+    setErrors,
+    handleBlur,
+    handleInput,
+  };
 }

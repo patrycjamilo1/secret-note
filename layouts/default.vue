@@ -2,7 +2,15 @@
    <div class="app-layout">
         <div class="triangle-top-left"></div>
         <div class="content">
-            <Header>
+            <Header v-if="!authStore.user">
+               <NuxtLink to="/" class="text-3xl text-white contrast:text-black">Secret Note</NuxtLink>
+               <nav class="flex gap-2 items-center">
+                  <NuxtLink to="/login" class="underline">Sign in</NuxtLink>
+                  <span class="w-2 h-full">|</span>
+                  <NuxtLink to="/register" class="underline">Sign up</NuxtLink>
+               </nav>
+            </Header>
+            <Header v-else>
                <NuxtLink to="/" class="text-3xl text-white contrast:text-black">Secret Note</NuxtLink>
                <nav class="flex gap-2 items-center">
                   <NuxtLink to="/messages" class="underline">Messages</NuxtLink>
@@ -10,7 +18,7 @@
                   <button type="button" class="underline" @click="logout">Logout</button>
                   <span class="w-2 h-full">|</span>
                   <NuxtLink to="/profile" class="profile-link">
-                     <UAvatar alt="User avatar" :src="authStore.user.image || BlankUser" size="md" />
+                     <UAvatar alt="User avatar" :src="authStore.user?.image || BlankUser" size="md" />
                   </NuxtLink>
                </nav>
             </Header>

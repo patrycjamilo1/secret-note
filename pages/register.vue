@@ -48,9 +48,6 @@
 <script setup lang="ts">
 import type { FetchErrorWithMessage } from '~/types/api';
 
-definePageMeta({
-    layout: 'logged-out'
-})
 interface FormData extends Record<string, string> {
     login: string;
     email: string;
