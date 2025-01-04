@@ -17,12 +17,13 @@ export default defineNuxtConfig({
   ],
   fontawesome: {
     icons: {
-      solid: ["lock", "eye", "eye-slash", "key", "calendar"],
+      solid: ["lock", "eye", "eye-slash", "key", "calendar", "copy"],
     },
   },
   runtimeConfig: {
     public: {
       apiUrl: "http://localhost:3333",
+      baseUrl: "http://localhost:3000",
     },
   },
   colorMode: {

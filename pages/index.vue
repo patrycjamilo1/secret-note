@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FetchErrorWithMessage } from '~/types/api';
+import type { CreatedMessageResponse, FetchErrorWithMessage } from '~/types/api';
 
 const { $api, $toast } = useNuxtApp();
 const isPasswordShown = ref(false);
@@ -53,9 +53,10 @@ async function handleSubmit(e: Event) {
     if (validateForm(targetForm)) {
         try {
             const formData = useFormData(targetForm);
-            await $api.post('messages', formData);
+            const response = await $api.post<CreatedMessageResponse>('messages', formData);
             $toast.success('Message created successfully!');
             targetForm.reset();
+            navigateTo(`/share/${response.uuid}`);
         }
         catch(ex) {
             const { formFormattedMessages, message } = useCustomError(ex as FetchErrorWithMessage);

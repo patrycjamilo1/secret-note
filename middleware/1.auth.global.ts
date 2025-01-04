@@ -42,7 +42,12 @@ export default defineNuxtRouteMiddleware(async (to) =>
         {
             authStore.token = '';
             authStore.user = null;
-            navigateTo('/');
+            if(to.path !== '/')
+                navigateTo('/');
         }
+    }
+
+    if(!authStore.user && !authStore.token) {
+        return;
     }
 });
