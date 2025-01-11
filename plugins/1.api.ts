@@ -39,10 +39,6 @@ class ApiHelper implements ApiModel {
         response: body,
       });
     }
-
-    if (response && response.status === 404) {
-      throw createError({ statusCode: 404, statusMessage: "Page not found" });
-    }
   };
 
   private fetch = async <T>(url: string, options: any): Promise<T> => {

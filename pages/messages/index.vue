@@ -7,6 +7,7 @@
           :sortDirection="query.sortDirection"
           @sortChanged="handleSortChanged"
           @filters-changed="handleFiltersChanged"
+          @deleteMessage="handleDeleteMessage"
         />
         <Pagination 
           v-if="messagesData?.totalPages"
@@ -21,6 +22,8 @@
 <script setup lang="ts">
 import { useUserMessages } from '~/composables/useUserMessages';
 import type { GetUserMessagesDto } from '~/types/api';
+
+const { $api, $toast } = useNuxtApp();
 
 const query = ref<GetUserMessagesDto>({
   page: 1,
@@ -48,5 +51,15 @@ const messages = computed(() => messagesData.value?.items ?? []);
 function handlePageChanged(newPage: number) {
   query.value.page = newPage;
   refresh();
+}
+
+async function handleDeleteMessage(uuid: string) {
+  try {
+    await $api.delete(`messages/${uuid}`);
+    $toast.success('Message successfully deleted');
+    refresh();
+  } catch (error) {
+    $toast.error('Failed to delete message, try again!')
+  }
 }
 </script>
