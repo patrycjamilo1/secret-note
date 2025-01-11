@@ -24,7 +24,7 @@ import type { GetUserMessagesDto } from '~/types/api';
 
 const query = ref<GetUserMessagesDto>({
   page: 1,
-  pageSize: 2,
+  pageSize: 10,
   sortBy: 'createdAt',
   sortDirection: 'desc',
 });
