@@ -45,3 +45,27 @@ export interface ReadMessageResponse {
       isPasswordProtected: boolean;
     };
 }
+
+export interface GetUserMessagesDto {
+    page?: number;            
+    pageSize?: number;        
+    sortBy?: 'createdAt' | 'updatedAt' | 'validUntil';  
+    sortDirection?: 'asc' | 'desc';  
+    validUntilBefore?: string;       
+    validUntilAfter?: string;        
+}
+
+export interface UserMessageResponseDto {
+    uuid: string;
+    validUntil: string | null;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface PaginatedUserMessagesDto {
+    items: UserMessageResponseDto[]; 
+    totalCount: number;              
+    page: number;                    
+    pageSize: number;                
+    totalPages: number;              
+}

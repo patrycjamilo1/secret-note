@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   ],
   fontawesome: {
     icons: {
-      solid: ["lock", "eye", "eye-slash", "key", "calendar", "copy"],
+      solid: ["lock", "eye", "eye-slash", "key", "calendar", "copy", "filter"],
     },
   },
   runtimeConfig: {

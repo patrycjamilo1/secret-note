@@ -48,7 +48,13 @@ button {
 }
 
 .collapse-button {
-    @apply bg-main-900 text-white border-transparent font-normal w-full;
+    @apply bg-main-900 text-white border-transparent font-normal w-full contrast:bg-contrast-yellow contrast:text-black;
+}
+
+.contrast {
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
 }
 
 .full-w {
@@ -101,5 +107,9 @@ h1 {
 
 .collapse-content svg {
     @apply text-black dark:text-white contrast:text-white;
+}
+
+.messages-collapse .collapse-button, .messages-collapse .collapse-content {
+    @apply border-2 border-gray-300 contrast:border-black dark:border-gray-600;
 }
 

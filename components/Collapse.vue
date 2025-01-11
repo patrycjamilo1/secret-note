@@ -29,6 +29,6 @@ const randomId = crypto.randomUUID();
 .collapse-content {
     margin-top: 10px;
     padding: 1em;
-    @apply bg-main-950 text-white;
+    @apply bg-main-950 contrast:bg-white text-white contrast:text-black;
 }
 </style>
