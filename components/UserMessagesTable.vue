@@ -27,7 +27,7 @@
       </div>
     </Collapse>
 
-    <table class="min-w-full border-2 border-gray-500 dark:border-gray-600 contrast:border-black">
+    <table class="min-w-full border-2 border-gray-500 dark:border-gray-600 contrast:border-contrast-yellow">
       <thead class="bg-gray-300 dark:bg-black contrast:bg-contrast-yellow border-b-2 border-gray-500 dark:border-gray-600 contrast:border-black">
         <tr class="divide-x divide-gray-500 dark:divide-gray-600 contrast:divide-black">
           <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-black dark:text-white contrast:text-black uppercase tracking-wider">
@@ -76,9 +76,14 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-300 dark:divide-gray-600">
-        <tr v-if="messages.length === 0">
-            <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400 contrast:text-black">
-            No records were found.
+        <tr 
+            v-if="messages.length === 0"
+        >
+            <td 
+            colspan="5" 
+            class="px-6 py-4 text-center text-sm text-gray-800 dark:text-gray-400 contrast:text-white"
+            >
+                No records were found.
             </td>
         </tr>
         <tr
