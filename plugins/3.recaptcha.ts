@@ -10,7 +10,7 @@ export default defineNuxtPlugin(nuxtApp => {
         autoHideBadge: false,
         useRecaptchaNet: true,
         renderParameters: {
-          hl: 'id'
+          hl: 'en'
         }
       }
     }
