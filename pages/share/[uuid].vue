@@ -22,12 +22,12 @@
 const shareUrl = ref('');
 const copySuccess = ref(false);
 
-const configRuntime = useRuntimeConfig();
 const route = useRoute();
 const uuid = route.params.uuid as string;
 
 if(uuid) {
-    const base = configRuntime.public.baseUrl.replace(/\/+$/, '');
+    const { protocol, host } = window.location;
+    const base = `${protocol}//${host}`;
     shareUrl.value = `${base}/messages/read/${uuid}`;
 }
 else {

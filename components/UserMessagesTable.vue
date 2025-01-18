@@ -191,10 +191,10 @@ function onCancelDelete() {
   messageToDelete.value = null;
 }
 
-const configRuntime = useRuntimeConfig();
 
 function copyLink(uuid: string) {
-  const base = configRuntime.public.baseUrl.replace(/\/+$/, '');
+  const { protocol, host } = window.location;
+  const base = `${protocol}//${host}`;
   const shareUrl = `${base}/messages/read/${uuid}`;
   navigator.clipboard.writeText(shareUrl)
     .then(() => {
