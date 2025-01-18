@@ -21,7 +21,7 @@
               />
             </div>
           </div>
-          <button type="submit" class="action-button bg-asset-600">Decrypt Message</button>
+          <button type="submit" class="action-button bg-asset-600" :disabled="loading">Decrypt Message</button>
         </form>
         <p v-if="passwordError" class="text-red-600">{{ passwordError }}</p>
       </div>
