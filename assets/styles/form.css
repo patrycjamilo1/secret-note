@@ -89,7 +89,7 @@ input:-webkit-autofill:active {
     @apply text-white bg-asset-600 contrast:bg-white contrast:text-black border-transparent hover:bg-asset-700;
 }
 
-.submit-button:disabled {
+.submit-button:disabled, .action-button:disabled {
     @apply opacity-[0.6] cursor-not-allowed pointer-events-none;
 }
 
