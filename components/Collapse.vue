@@ -18,7 +18,7 @@ interface Props {
 }
 defineProps<Props>();
 const isOpen = ref(false);
-const randomId = crypto.randomUUID();
+const randomId = generateUUID();
 </script>
 
 <style scoped>
