@@ -31,8 +31,9 @@
                     <p class="input-error" v-if="errors.validUntil">{{ errors.validUntil }}</p>
                 </div>
             </Collapse>
-            <button type="submit" class="action-button submit-button">
-                Create your secret
+            <button type="submit" class="action-button submit-button" :disabled="isLoading">
+                <Loader v-if="isLoading" />
+                <span v-else>Create your secret</span>
             </button>
             <p>Your secure link works only once and than permanently expire</p>
         </form>
@@ -45,6 +46,7 @@ import type { CreatedMessageResponse, FetchErrorWithMessage } from '~/types/api'
 const { $api, $toast } = useNuxtApp();
 const isPasswordShown = ref(false);
 const { errors, validateForm, handleBlur, clearErrors, setErrors } = useFormValidation();
+const isLoading = ref(false);
 
 async function handleSubmit(e: Event) {
     clearErrors();
@@ -52,6 +54,7 @@ async function handleSubmit(e: Event) {
 
     if (validateForm(targetForm)) {
         try {
+            isLoading.value = true;
             const formData = useFormData(targetForm);
             const response = await $api.post<CreatedMessageResponse>('messages', formData);
             $toast.success('Message created successfully!');
@@ -63,6 +66,9 @@ async function handleSubmit(e: Event) {
             if (message)
                 $toast.error(message);
             setErrors(formFormattedMessages);
+        }
+        finally {
+            isLoading.value = false;
         }
   }
 }

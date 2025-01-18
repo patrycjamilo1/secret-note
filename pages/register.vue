@@ -38,8 +38,9 @@
                 <p class="input-error" v-if="errors.passwordConfirm">{{ errors.passwordConfirm }}</p>
             </div>
             <NuxtLink to="/login">Already have an account? Sign in</NuxtLink>
-            <button type="submit" class="submit-button action-button">
-                Sign up
+            <button type="submit" class="submit-button action-button" :disabled="isLoading">
+                <Loader v-if="isLoading" />
+                <span v-else>Sign up</span>
             </button>
         </form>
     </section>
@@ -56,6 +57,7 @@ interface FormData extends Record<string, string> {
 }
 const isPasswordShown = ref(false);
 const { $api, $toast } = useNuxtApp();
+const isLoading = ref(false);
 const { errors, validateForm, handleBlur, clearErrors, setErrors } = useFormValidation();
 async function handleSubmit(e: Event) {
     clearErrors();
@@ -64,6 +66,7 @@ async function handleSubmit(e: Event) {
     if (validateForm(targetForm)) {
         const formData = useFormData<FormData>(targetForm);
         try {
+            isLoading.value = true;
             await $api.post('auth/local/signup', formData);
             navigateTo('/login');
             $toast.success('User successfully registered, you can now log in');
@@ -73,6 +76,9 @@ async function handleSubmit(e: Event) {
             if (message)
                 $toast.error(message);
             setErrors(formFormattedMessages);
+        }
+        finally {
+            isLoading.value = false;
         }
     }
 }

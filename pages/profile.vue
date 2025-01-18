@@ -34,8 +34,9 @@
                 </div>
                 <p class="input-error" v-if="errors.password">{{ errors.password }}</p>
             </div>
-            <button type="submit" class="submit-button action-button">
-                Update my profile info
+            <button type="submit" class="submit-button action-button" :disabled="isLoading">
+                <Loader v-if="isLoading" />
+                <span v-else>Update my profile info</span>
             </button>
         </form>
     </section>
@@ -48,6 +49,7 @@ const { errors, clearErrors, handleBlur, setErrors } = useFormValidation();
 const { $api, $toast } = useNuxtApp()
 const authStore = useAuthStore();
 const profilePicture = ref<File | null>(null);
+const isLoading = ref(false);
 
 async function uploadProfileImage(file: File): Promise<string> {
     return await uploadImage(file);
@@ -55,6 +57,7 @@ async function uploadProfileImage(file: File): Promise<string> {
 
 async function patchData(data: any): Promise<{ success: boolean }> {
   try {
+    isLoading.value = true;
     const response  = await $api.patch<UserData>(`users/${authStore.user?.id}`, data);
     authStore.user = response;
     return { success: true }
@@ -65,6 +68,9 @@ async function patchData(data: any): Promise<{ success: boolean }> {
         $toast.error(message);
     setErrors(formFormattedMessages);
     return { success: false };
+  }
+  finally {
+    isLoading.value = false;
   }
 }
 

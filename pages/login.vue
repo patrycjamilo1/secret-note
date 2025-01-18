@@ -21,8 +21,9 @@
                 <p class="input-error" v-if="errors.password">{{ errors.password }}</p>
             </div>
             <NuxtLink to="/register">Do not have an account? Sign up</NuxtLink>
-            <button type="submit" class="submit-button action-button">
-                Sign in
+            <button type="submit" class="submit-button action-button" :disabled="isLoading">
+                <Loader v-if="isLoading" />
+                <span v-else>Sign in</span>
             </button>
         </form>
     </section>
@@ -36,6 +37,7 @@ const { $api, $toast } = useNuxtApp();
 const isPasswordShown = ref(false);
 const authStore = useAuthStore();
 const { errors, validateForm, handleBlur, clearErrors, setErrors } = useFormValidation();
+const isLoading = ref(false);
 const { executeRecaptcha } = useGoogleRecaptcha();
 async function handleSubmit(e: Event) {
     clearErrors();
@@ -43,6 +45,7 @@ async function handleSubmit(e: Event) {
 
     if (validateForm(targetForm)) {
         try {
+            isLoading.value = true;
             const { token } = await executeRecaptcha('submit')
             const formData = useFormData(targetForm);
             const formDataWithCaptcha = { ...formData, gRecaptchaResponse: token };
@@ -58,6 +61,9 @@ async function handleSubmit(e: Event) {
             if (message)
                 $toast.error(message);
             setErrors(formFormattedMessages);
+        }
+        finally {
+            isLoading.value = false;
         }
   }
 }
