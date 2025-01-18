@@ -38,7 +38,7 @@
   import { useRoute } from 'vue-router';
   import type { MessageMetadata, ReadMessageResponse } from '~/types/api';
   
-  const loading = ref(true);
+  const loading = ref(false);
   const error = ref('');
   const password = ref('');
   const passwordError = ref('');
@@ -51,6 +51,7 @@
   // Fetch metadata to determine if the message is password-protected
   const fetchMetadata = async () => {
     try {
+        loading.value = true;
       const response = await $api.get<MessageMetadata>(`messages/${uuid}/metadata`);
       isPasswordProtected.value = response.isPasswordProtected;
   
@@ -74,6 +75,7 @@
   // Fetch the secret message
   const fetchMessage = async () => {
     try {
+        loading.value = true;
       const requestBody = isPasswordProtected.value ? { password: password.value } : {};
       const response = await $api.post<ReadMessageResponse>(`messages/${uuid}/read`, requestBody);
       decryptedMessage.value = response.secretMessage;
@@ -87,6 +89,9 @@
       } else {
         passwordError.value = 'An unexpected error occurred while decrypting the message.';
       }
+    }
+    finally {
+        loading.value = false;
     }
   };
   
@@ -102,7 +107,6 @@
       fetchMetadata();
     } else {
       error.value = 'Invalid message UUID.';
-      loading.value = false;
     }
   });
   </script>
