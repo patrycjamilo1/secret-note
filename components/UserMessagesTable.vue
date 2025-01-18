@@ -57,19 +57,6 @@
           >
             Created At
           </th>
-
-          <th
-            @click="onSort('updatedAt')"
-            @keydown.enter.space.prevent="onSort('updatedAt')"
-            role="button"
-            tabindex="0"
-            :aria-sort="ariaSort('updatedAt')"
-            scope="col"
-            class="cursor-pointer px-6 py-3 text-left text-xs font-bold text-black dark:text-white contrast:text-black uppercase tracking-wider"
-          >
-            Updated At
-          </th>
-
           <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-black dark:text-white contrast:text-black uppercase tracking-wider">
             Actions
           </th>
@@ -99,9 +86,6 @@
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300 contrast:text-black">
             {{ dayjs(message.createdAt).format('YYYY-MM-DD HH:mm') }}
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300 contrast:text-black">
-            {{ dayjs(message.updatedAt).format('YYYY-MM-DD HH:mm') }}
           </td>
 
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300 contrast:text-black space-x-2">
