@@ -7,7 +7,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const options: IReCaptchaOptions = {
       siteKey: config.public.captchaKey,
       loaderOptions: {
-        autoHideBadge: true,
+        autoHideBadge: false,
         useRecaptchaNet: true,
         renderParameters: {
           hl: 'id'
