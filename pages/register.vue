@@ -58,16 +58,19 @@ interface FormData extends Record<string, string> {
 const isPasswordShown = ref(false);
 const { $api, $toast } = useNuxtApp();
 const isLoading = ref(false);
+const { executeRecaptcha } = useGoogleRecaptcha();
 const { errors, validateForm, handleBlur, clearErrors, setErrors } = useFormValidation();
 async function handleSubmit(e: Event) {
     clearErrors();
     const targetForm = e.target as HTMLFormElement;
 
     if (validateForm(targetForm)) {
-        const formData = useFormData<FormData>(targetForm);
         try {
             isLoading.value = true;
-            await $api.post('auth/local/signup', formData);
+            const { token } = await executeRecaptcha('submit')
+            const formData = useFormData(targetForm);
+            const formDataWithCaptcha = { ...formData, gRecaptchaResponse: token };
+            await $api.post('auth/local/signup', formDataWithCaptcha);
             navigateTo('/login');
             $toast.success('User successfully registered, you can now log in');
         }

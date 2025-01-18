@@ -47,6 +47,7 @@ const { $api, $toast } = useNuxtApp();
 const isPasswordShown = ref(false);
 const { errors, validateForm, handleBlur, clearErrors, setErrors } = useFormValidation();
 const isLoading = ref(false);
+const { executeRecaptcha } = useGoogleRecaptcha();
 
 async function handleSubmit(e: Event) {
     clearErrors();
@@ -55,8 +56,10 @@ async function handleSubmit(e: Event) {
     if (validateForm(targetForm)) {
         try {
             isLoading.value = true;
+            const { token } = await executeRecaptcha('submit')
             const formData = useFormData(targetForm);
-            const response = await $api.post<CreatedMessageResponse>('messages', formData);
+            const formDataWithCaptcha = { ...formData, gRecaptchaResponse: token };
+            const response = await $api.post<CreatedMessageResponse>('messages', formDataWithCaptcha);
             $toast.success('Message created successfully!');
             targetForm.reset();
             navigateTo(`/share/${response.uuid}`);
