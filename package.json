@@ -21,6 +21,7 @@
     "nuxt": "^3.13.2",
     "pinia": "^2.2.7",
     "vue": "latest",
+    "vue-recaptcha-v3": "^2.0.1",
     "vue-router": "latest",
     "vue-toast-notification": "^3.1.3"
   },

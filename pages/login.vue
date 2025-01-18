@@ -29,20 +29,24 @@
 </template>
 
 <script setup lang="ts">
+import useGoogleRecaptcha from '~/composables/useGoogleRecaptcha';
 import type { FetchErrorWithMessage, Tokens } from '~/types/api';
 
 const { $api, $toast } = useNuxtApp();
 const isPasswordShown = ref(false);
 const authStore = useAuthStore();
 const { errors, validateForm, handleBlur, clearErrors, setErrors } = useFormValidation();
+const { executeRecaptcha } = useGoogleRecaptcha();
 async function handleSubmit(e: Event) {
     clearErrors();
     const targetForm = e.target as HTMLFormElement;
 
     if (validateForm(targetForm)) {
         try {
+            const { token } = await executeRecaptcha('submit')
             const formData = useFormData(targetForm);
-            const tokens = await $api.post<Tokens>('auth/local/signin', formData);
+            const formDataWithCaptcha = { ...formData, gRecaptchaResponse: token };
+            const tokens = await $api.post<Tokens>('auth/local/signin', formDataWithCaptcha);
             authStore.token = tokens.access_token;
             localStorage.setItem('refresh_token', tokens.refresh_token);
             const tokenCookie = useCookie('token', { maxAge: 60 * 1000 * 15 });
